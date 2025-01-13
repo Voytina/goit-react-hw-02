@@ -9,20 +9,13 @@ import Notification from './components/Notification/Notification';
 
 export default  function App (){
   const [reviews,setReviews] = useState(()=>{
-
-    const data = JSON.parse(localStorage.getItem('key'));
-
-    console.log(data);
-    
-
+    const data = JSON.parse(localStorage.getItem('key'));    
     return data || {good:0, neutral:0, bad:0}
 
   })
 
   useEffect(()=>{
-
     localStorage.setItem('key',JSON.stringify(reviews))
-
   },[reviews])
 
   const updateFeedback = feedbackType => {
@@ -34,6 +27,7 @@ export default  function App (){
 
   const totalFeedback = Object.values(reviews).reduce((acc,value) => acc+=value,0);
 
+  const percentagePositiveReviews = Math.round((reviews.good  / totalFeedback) * 100);
 
   const resetFeedBack  = () =>{
     setReviews({good: 0,
@@ -47,7 +41,7 @@ export default  function App (){
       <Description/>
       <Options item={reviews} update={updateFeedback} totalFeedback={totalFeedback} reset={resetFeedBack}/>
       {
-        totalFeedback > 0 ? <Feedback item={reviews} total={totalFeedback} /> :  <Notification/>
+        totalFeedback > 0 ? <Feedback item={reviews} total={totalFeedback} interest={percentagePositiveReviews} /> :  <Notification/>
       }
     </div>)
 

@@ -1,6 +1,5 @@
-export default function Feedback ({total,item:{bad,good,neutral}}){
+export default function Feedback ({interest,total,item:{bad,good,neutral}}){
 
-    const percentagePositiveReviews = Math.round((good  / total) * 100);
 
     return (
         <div>
@@ -8,7 +7,7 @@ export default function Feedback ({total,item:{bad,good,neutral}}){
             <p>Neutral : {neutral}</p>
             <p>Bad : {bad}</p>
             <p>Total : {total}</p>
-            <p>Positive : {percentagePositiveReviews} %</p>
+            <p>Positive : {interest} %</p>
         </div>
     )
 
